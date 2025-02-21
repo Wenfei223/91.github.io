@@ -3,169 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>混子导航网站</title>
+    <title>🐟 混子导航</title>
     <style>
-        :root {
-            --bg-color: #f0f2f5;
-            --card-bg: #ffffff;
-            --theme-color: #409EFF;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: "Microsoft Yahei", sans-serif;
-            background: var(--bg-color);
-            padding: 20px;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo {
-            font-size: 2.5em;
-            color: var(--theme-color);
-            margin-bottom: 10px;
-        }
-
-        .search-box {
-            width: calc(100% - 100px);
-            max-width: 600px;
-            padding: 12px;
-            border: 2px solid var(--theme-color);
-            border-radius: 24px;
-            outline: none;
-            margin: 10px 10px 20px 0;
-        }
-
-        .search-button {
-            padding: 12px 20px;
-            background-color: var(--theme-color);
-            color: white;
-            border: none;
-            border-radius: 24px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .search-button:hover {
-            background-color: darkblue;
-        }
-
-        .category {
-            background: var(--card-bg);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-        }
-
-        .category-title {
-            color: var(--theme-color);
-            margin-bottom: 15px;
-            padding-left: 10px;
-            border-left: 4px solid var(--theme-color);
-        }
-
-        .link-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .link-item {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
             display: flex;
+            justify-content: center;
             align-items: center;
-            padding: 12px;
-            border-radius: 6px;
-            background: #f8f9fa;
-            transition: all 0.3s;
-            text-decoration: none;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        h1 {
+            font-size: 2.5rem;
             color: #333;
+            margin-bottom: 20px;
         }
-
-        .link-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            background: var(--theme-color);
-            color: white;
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-
-        .link-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #0078d7;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+        .nav-links a:hover {
+            background-color: #005bb5;
+        }
+        .search-bar {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .search-bar input {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #0078d7;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .search-bar button:hover {
+            background-color: #005bb5;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1 class="logo">🐟 混子导航</h1>
-            <div style="display: flex; justify-content: center; align-items: center;">
-                <input type="text" class="search-box" placeholder="网站所有归刘文松，请输入关键词找划水姿势..." id="searchInput">
-                <button class="search-button" id="searchButton">搜索</button>
-            </div>
-        </header>
-
-        <div id="navContainer"></div>
+    <h1>🐟 混子导航</h1>
+    <div class="nav-links">
+        <a href="https://www.kuaishou.com" target="_blank">快手</a>
+        <a href="https://www.douyin.com" target="_blank">抖音</a>
+        <a href="https://www.bilibili.com" target="_blank">哔哩哔哩</a>
+        <a href="https://www.xiaohongshu.com" target="_blank">小红书</a>
+        <a href="https://Siri.WenTianPlay.com" target="_blank">恋爱人生</a>
+    </div>
+    <div class="search-bar">
+        <input type="text" id="search-input" placeholder="网站所有:刘文松，输入搜索内容">
+        <button onclick="searchBing()">搜索</button>
     </div>
 
     <script>
-        // 导航数据
-        const navData = [
-            {
-                title: "日常摸鱼",
-                links: [
-                    {name: "抖音", url: "https://www.douyin.com/", icon: "https://www.douyin.com/favicon.ico"},
-                    {name: "B站", url: "https://www.bilibili.com", icon: "https://www.bilibili.com/favicon.ico"},
-                    {name: "快手", url: "https://www.kuaishou.com/new-reco", icon: "https://www.kuaishou.com/favicon.ico"}
-                ]
-            },
-            {
-                title: "学习资料",
-                links: [
-                    {name: "学习资源", url: "https://WenTianPlay.com", icon: "favicon.ico"},
-                    {name: "教程", url: "https://WenTianPlay.com", icon: "favicon.ico"}
-                ]
-            },
-            {
-                title: "高效学习",
-                links: [
-                    {name: "恋爱人生", url: "https://Siri.WenTianPlay.com", icon: "favicon.ico"},
-                    {name: "线上课程", url: "https://1.WenTianPlay.com", icon: "favicon.ico"},
-                ]
+        function searchBing() {
+            const query = document.getElementById('search-input').value;
+            if (query) {
+                window.open(`https://www.bing.com/search?q=${encodeURIComponent(query)}`, '_blank');
             }
-        ];
-
-        // 生成导航HTML
-        function renderNav(data) {
-            return data.map(category => `
-                <div class="category">
-                    <h2 class="category-title">${category.title}</h2>
-                    <div class="link-grid">
-                        ${category.links.map(link => `
-                            <a href="${link.url}" target="_blank" class="link-item">
-                                <img src="${link.icon}" class="link-icon" alt="icon">
-                                ${link.name}
-                            </a>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join('');
         }
-
-        // 渲染导航
-        document.getElementById('nav
+    </script>
+</body>
+</html>
