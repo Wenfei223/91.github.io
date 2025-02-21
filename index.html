@@ -115,7 +115,7 @@
         <header class="header">
             <h1 class="logo">🐟 混子导航</h1>
             <div style="display: flex; justify-content: center; align-items: center;">
-                <input type="text" class="search-box" placeholder="网站所有者:刘文松 请输入关键词找划水姿势..." id="searchInput">
+                <input type="text" class="search-box" placeholder="网站所有归刘文松，请输入关键词找划水姿势..." id="searchInput">
                 <button class="search-button" id="searchButton">搜索</button>
             </div>
         </header>
@@ -137,17 +137,15 @@
             {
                 title: "学习资料",
                 links: [
-                    {name: "黄色", url: "https://WenTianPlay.com", icon: "favicon.ico"},
-                    {name: "色情", url: "https://WenTianPlay.com", icon: "favicon.ico"},
-                    {name: "涩情", url: "https://WenTianPlay.com", icon: "favicon.ico"}
+                    {name: "学习资源", url: "https://WenTianPlay.com", icon: "favicon.ico"},
+                    {name: "教程", url: "https://WenTianPlay.com", icon: "favicon.ico"}
                 ]
             },
             {
                 title: "高效学习",
                 links: [
                     {name: "恋爱人生", url: "https://Siri.WenTianPlay.com", icon: "favicon.ico"},
-                    {name: "色情人生", url: "https://1.WenTianPlay.com", icon: "favicon.ico"},
-                    {name: "涩情人生", url: "https://2.WenTianPlay.com", icon: "favicon.ico"}
+                    {name: "线上课程", url: "https://1.WenTianPlay.com", icon: "favicon.ico"},
                 ]
             }
         ];
@@ -169,47 +167,5 @@
             `).join('');
         }
 
-        // 初始渲染
-        document.getElementById('navContainer').innerHTML = renderNav(navData);
-
-        // 搜索功能
-        document.getElementById('searchButton').addEventListener('click', function() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            
-            // 使用Bing搜索
-            if (searchTerm) {
-                window.open(`https://www.bing.com/search?q=${encodeURIComponent(searchTerm)}`, '_blank');
-            }
-        });
-
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const filteredData = navData.map(category => ({
-                ...category,
-                links: category.links.filter(link => 
-                    link.name.toLowerCase().includes(searchTerm) ||
-                    link.url.toLowerCase().includes(searchTerm)
-            })).filter(category => category.links.length > 0);
-            
-            document.getElementById('navContainer').innerHTML = renderNav(filteredData);
-
-            // 记录点击次数（本地存储）
-            document.querySelectorAll('.link-item').forEach(link => {
-                link.addEventListener('click', recordClick); // 对每个链接绑定点击事件
-            });
-        });
-
-        // 记录点击次数
-        function recordClick() {
-            const linkName = this.textContent.trim();
-            let clickCount = localStorage.getItem(linkName) || 0;
-            localStorage.setItem(linkName, ++clickCount);
-        }
-        
-        // 初始化记录点击事件
-        document.querySelectorAll('.link-item').forEach(link => {
-            link.addEventListener('click', recordClick);
-        });
-    </script>
-</body>
-</html>
+        // 渲染导航
+        document.getElementById('nav
