@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>混子导航网站</title>
+    <style>
+        :root {
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --theme-color: #409EFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft Yahei", sans-serif;
+            background: var(--bg-color);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 2.5em;
+            color: var(--theme-color);
+            margin-bottom: 10px;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 12px;
+            border: 2px solid var(--theme-color);
+            border-radius: 24px;
+            outline: none;
+        }
+
+        .category {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        .category-title {
+            color: var(--theme-color);
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid var(--theme-color);
+        }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-radius: 6px;
+            background: #f8f9fa;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .link-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: var(--theme-color);
+            color: white;
+        }
+
+        .link-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">🐟 混子导航</h1>
+            <input type="text" class="search-box" placeholder="网站所有者“刘文松”请输入关键词找划水姿势..." id="searchInput">
+        </header>
+
+        <div id="navContainer"></div>
+    </div>
+
+    <script>
+        // 导航数据
+        const navData = [
+            {
+                title: "日常摸鱼",
+                links: [
+                    {name: "抖音", url: "https://www.douyin.com/", icon: "https://www.douyin.com/favicon.ico"},
+                    {name: "B站", url: "https://www.bilibili.com", icon: "https://www.bilibili.com/favicon.ico"},
+                    {name: "快手", url: "https://www.kuaishou.com/new-reco", icon: "https://www.kuaishou.com/favicon.ico"}
+                ]
+            },
+            {
+                title: "学习资料",
+                links: [
+                    {name: "黄色", url: "https://WenTianPlay.com", icon: "favicon.ico"},
+                    {name: "色情", url: "https://WenTianPlay.com", icon: "favicon.ico"},
+                    {name: "涩情", url: "https://WenTianPlay.com", icon: "favicon.ico"}
+                ]
+            },
+            {
+                title: "高效学习",
+                links: [
+                    {name: "恋爱人生", url: "https://Siri.WenTianPlay.com", icon: "favicon.ico"},
+                    {name: "色情人生", url: "https://1.WenTianPlay.com", icon: "favicon.ico"},
+                    {name: "涩情人生", url: "https://2.WenTianPlay.com", icon: "favicon.ico"}
+                ]
+            }
+        ];
+
+        // 生成导航HTML
+        function renderNav(data) {
+            return data.map(category => `
+                <div class="category">
+                    <h2 class="category-title">${category.title}</h2>
+                    <div class="link-grid">
+                        ${category.links.map(link => `
+                            <a href="${link.url}" target="_blank" class="link-item">
+                                <img src="${link.icon}" class="link-icon" alt="icon">
+                                ${link.name}
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 初始渲染
+        document.getElementById('navContainer').innerHTML = renderNav(navData);
+
+        // 搜索功能
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredData = navData.map(category => ({
+                ...category,
+                links: category.links.filter(link => 
+                    link.name.toLowerCase().includes(searchTerm) ||
+                    link.url.toLowerCase().includes(searchTerm)
+            })).filter(category => category.links.length > 0);
+            
+            document.getElementById('navContainer').innerHTML = renderNav(filteredData);
+        });
+
+        // 记录点击次数（本地存储）
+        document.querySelectorAll('.link-item').forEach(link => {
+            link.addEventListener('click', function() {
+                const linkName = this.textContent.trim();
+                let clickCount = localStorage.getItem(linkName) || 0;
+                localStorage.setItem(linkName, ++clickCount);
+            });
+        });
+    </script>
+</body>
+</html>
