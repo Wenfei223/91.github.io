@@ -192,15 +192,23 @@
             })).filter(category => category.links.length > 0);
             
             document.getElementById('navContainer').innerHTML = renderNav(filteredData);
+
+            // 记录点击次数（本地存储）
+            document.querySelectorAll('.link-item').forEach(link => {
+                link.addEventListener('click', recordClick); // 对每个链接绑定点击事件
+            });
         });
 
-        // 记录点击次数（本地存储）
+        // 记录点击次数
+        function recordClick() {
+            const linkName = this.textContent.trim();
+            let clickCount = localStorage.getItem(linkName) || 0;
+            localStorage.setItem(linkName, ++clickCount);
+        }
+        
+        // 初始化记录点击事件
         document.querySelectorAll('.link-item').forEach(link => {
-            link.addEventListener('click', function() {
-                const linkName = this.textContent.trim();
-                let clickCount = localStorage.getItem(linkName) || 0;
-                localStorage.setItem(linkName, ++clickCount);
-            });
+            link.addEventListener('click', recordClick);
         });
     </script>
 </body>
