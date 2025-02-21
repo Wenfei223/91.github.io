@@ -41,13 +41,27 @@
         }
 
         .search-box {
-            width: 100%;
+            width: calc(100% - 100px);
             max-width: 600px;
-            margin: 20px auto;
             padding: 12px;
             border: 2px solid var(--theme-color);
             border-radius: 24px;
             outline: none;
+            margin: 10px 10px 20px 0;
+        }
+
+        .search-button {
+            padding: 12px 20px;
+            background-color: var(--theme-color);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: darkblue;
         }
 
         .category {
@@ -100,7 +114,10 @@
     <div class="container">
         <header class="header">
             <h1 class="logo">🐟 混子导航</h1>
-            <input type="text" class="search-box" placeholder="网站所有者“刘文松”请输入关键词找划水姿势..." id="searchInput">
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <input type="text" class="search-box" placeholder="网站所有者:刘文松 请输入关键词找划水姿势..." id="searchInput">
+                <button class="search-button" id="searchButton">搜索</button>
+            </div>
         </header>
 
         <div id="navContainer"></div>
@@ -156,6 +173,15 @@
         document.getElementById('navContainer').innerHTML = renderNav(navData);
 
         // 搜索功能
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            // 使用Bing搜索
+            if (searchTerm) {
+                window.open(`https://www.bing.com/search?q=${encodeURIComponent(searchTerm)}`, '_blank');
+            }
+        });
+
         document.getElementById('searchInput').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
             const filteredData = navData.map(category => ({
